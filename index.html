@@ -6,6 +6,18 @@
   <title data-i18n="meta.title">SHAINBOX — A design reference library, stored as folders.</title>
   <meta name="description" data-i18n-attr="content|meta.description" content="ShainBox is a desktop library for design references. Stored as folders. Local AI search by content. Your files, on your machine. Join the waitlist." />
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Microsoft Clarity analytics -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wib8ugoava");
+  </script>
+
   <!-- Fonts: Space Grotesk + Space Mono + Doto (hero only) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -468,7 +480,7 @@
       z-index: 1;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       background: var(--bg-0);
       display: block;
     }
@@ -1176,7 +1188,7 @@
           <span data-i18n="foot.tag">Made on disk</span>
         </div>
         <div class="foot-right">
-          <a href="#" data-i18n="foot.privacy">Privacy</a>
+          <a href="privacy.html" data-i18n="foot.privacy">Privacy</a>
           <a href="#why" data-i18n="foot.product">Product</a>
           <a href="mailto:hello@shainbox.app" data-i18n="foot.contact">Contact</a>
         </div>
