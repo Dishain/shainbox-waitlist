@@ -207,14 +207,14 @@
       font-size: 10px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--accent-ink);
-      background: var(--accent);
+      color: var(--accent);
+      background: var(--line);
       padding: 4px 10px;
       border-radius: 999px;
     }
     .status-pill .blink{
       width: 5px; height: 5px; border-radius: 999px;
-      background: var(--accent-ink);
+      background: var(--accent);
       animation: blink 1.6s var(--ease) infinite;
     }
     @keyframes blink{
@@ -246,68 +246,130 @@
       color: var(--text-primary);
     }
 
-    .hero-actions{
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
+    /* Hero inline waitlist form */
+    .hero-form{
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto auto;
+      gap: 12px;
+      align-items: stretch;
+      max-width: 660px;
+      margin: 0 0 16px;
     }
-    .btn-primary{
+    .hero-form-input{
+      width: 100%;
+      background: var(--bg-1);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      padding: 0 22px;
+      height: 50px;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--text-primary);
+      transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+    }
+    .hero-form-input:focus{
+      outline: none;
+      border-color: var(--accent);
+      background: var(--bg-2);
+    }
+    .hero-form-input::placeholder{ color: var(--text-disabled); }
+
+    .hero-form-pills{
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--bg-1);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      padding: 4px;
+      height: 50px;
+    }
+    .hero-form-pill{
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+    }
+    .hero-form-pill input{
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .hero-form-pill:has(input:checked){
+      background: var(--line);
+      color: var(--accent);
+    }
+    .hero-form-pill:not(:has(input:checked)):hover{ color: var(--text-primary); }
+    .hero-form-pill:focus-within{
+      outline: 2px solid var(--accent-ring);
+      outline-offset: 2px;
+    }
+
+    .hero-form-submit{
       display: inline-flex;
       align-items: center;
       gap: 12px;
       background: var(--accent);
       color: var(--accent-ink);
       border: 1px solid var(--accent);
-      padding: 14px 22px;
       border-radius: 999px;
+      padding: 0 24px;
+      height: 50px;
       font-family: "Space Mono", ui-monospace, monospace;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      text-decoration: none;
       cursor: pointer;
-      transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+      white-space: nowrap;
+      transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
     }
-    .btn-primary:hover{
-      transform: translateY(-1px);
+    .hero-form-submit:hover:not(:disabled){
       background: var(--accent-hi);
-      border-color: var(--accent-hi);
+      transform: translateY(-1px);
     }
-    .btn-primary .arrow{
+    .hero-form-submit:disabled{
+      opacity: 0.5;
+      cursor: progress;
+    }
+    .hero-form-submit .arrow{
       display: inline-block;
       width: 14px; height: 14px;
       position: relative;
     }
-    .btn-primary .arrow::before,
-    .btn-primary .arrow::after{
+    .hero-form-submit .arrow::before,
+    .hero-form-submit .arrow::after{
       content: "";
       position: absolute;
       background: var(--accent-ink);
     }
-    .btn-primary .arrow::before{ left:0; top:50%; width:14px; height:1px; transform: translateY(-0.5px); }
-    .btn-primary .arrow::after{ right:0; top:50%; width:7px; height:7px; border-top:1px solid var(--accent-ink); border-right:1px solid var(--accent-ink); transform: translateY(-50%) rotate(45deg); background: transparent; }
+    .hero-form-submit .arrow::before{ left: 0; top: 50%; width: 14px; height: 1px; transform: translateY(-0.5px); }
+    .hero-form-submit .arrow::after{ right: 0; top: 50%; width: 7px; height: 7px; border-top: 1px solid var(--accent-ink); border-right: 1px solid var(--accent-ink); transform: translateY(-50%) rotate(45deg); background: transparent; }
 
-    .btn-ghost{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: transparent;
-      color: var(--text-primary);
-      border: 1px solid var(--line-2);
-      padding: 14px 22px;
-      border-radius: 999px;
+    .hero-form-status{
+      margin-top: 14px;
       font-family: "Space Mono", ui-monospace, monospace;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
+      font-size: 11px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+      color: var(--text-disabled);
+      min-height: 1em;
     }
-    .btn-ghost:hover{ border-color: var(--text-primary); }
+    .hero-form-status.is-success{ color: var(--accent); }
+    .hero-form-status.is-error{ color: #FF5A5A; }
 
     .hero-meta{
       margin-top: 64px;
@@ -840,6 +902,11 @@
       .hero-meta > div:last-child{ border-bottom: 0; padding-left: 0; }
       .section-head{ grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
 
+      .hero-form{ grid-template-columns: 1fr; gap: 10px; }
+      .hero-form-pills{ width: 100%; justify-content: stretch; }
+      .hero-form-pill{ flex: 1; }
+      .hero-form-submit{ justify-content: center; }
+
       .why-row,
       .why-row.flip{
         grid-template-columns: 1fr;
@@ -906,15 +973,43 @@
         Local AI search by content. Your files, on your machine.
       </p>
 
-      <div class="hero-actions">
-        <a href="#waitlist" class="btn-primary">
-          <span data-i18n="hero.cta_primary">Get early access</span>
+      <form id="hero-waitlist-form"
+            class="hero-form"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            novalidate>
+        <input type="hidden" name="access_key" value="23cb1706-6498-4493-898d-d52d977d72ae">
+        <input type="hidden" name="subject" value="ShainBox waitlist · hero form">
+        <input type="hidden" name="from_name" value="ShainBox Waitlist">
+        <input type="hidden" name="form_source" value="hero">
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+
+        <input type="email"
+               name="email"
+               class="hero-form-input"
+               required
+               autocomplete="email"
+               placeholder="email"
+               data-i18n-attr="placeholder|hero.email_ph"
+               aria-label="Email">
+
+        <div class="hero-form-pills" role="radiogroup" aria-label="Platform">
+          <label class="hero-form-pill">
+            <input type="radio" name="platform" value="macOS" required>
+            <span>macOS</span>
+          </label>
+          <label class="hero-form-pill">
+            <input type="radio" name="platform" value="Windows">
+            <span>Windows</span>
+          </label>
+        </div>
+
+        <button type="submit" class="hero-form-submit">
+          <span data-i18n="hero.cta_primary">Join waitlist</span>
           <span class="arrow" aria-hidden="true"></span>
-        </a>
-        <a href="#why" class="btn-ghost" data-i18n="hero.cta_secondary">
-          See how it works
-        </a>
-      </div>
+        </button>
+      </form>
+      <div class="hero-form-status" id="hero-form-status" role="status" aria-live="polite"></div>
 
       <div class="hero-meta">
         <div>
@@ -1040,42 +1135,13 @@
 
   <!-- ============================================================
        WAITLIST FORM
-
-       MAILERLITE INTEGRATION SETUP
        ───────────────────────────────────────────────────────────
-       This form posts to MailerLite's embedded-form endpoint so
-       both the signup AND the welcome email stay in one ecosystem
-       (the spam fix vs. third-party form services).
-
-       Setup steps:
-
-       1. MailerLite → Forms → Embedded forms → Create new form.
-          Name it "ShainBox Waitlist".
-
-       2. Add custom fields under "Subscribers → Fields":
-            • platform     (text)
-            • current_tool (text)
-
-       3. Build a welcome email:
-            Automation → Workflows → New workflow
-            Trigger: "When subscriber joins a group" (set group =
-            ShainBox Waitlist)
-            Action: Send email (your welcome text).
-
-       4. CRITICAL — verify your sender domain in
-          Settings → Domain authentication. Set up SPF + DKIM.
-          This is what gets you out of the spam folder.
-
-       5. Copy the form's POST URL from the embed code.
-          It looks like:
-            https://assets.mailerlite.com/jsonp/[ACCOUNT]/forms/[FORMID]/subscribe
-
-       6. Replace MAILERLITE_ACTION_URL below with that URL.
-
-       7. (Optional) If you'd rather use MailerLite's drop-in JS
-          embed: replace the entire <form> with their snippet.
-          You'll lose the custom styling but get their built-in
-          spam protection out of the box.
+       Submits to Web3Forms (https://web3forms.com).
+       Replaces MailerLite — was unreliable due to double opt-in
+       confirmation emails landing in spam.
+       Each submission arrives as an email to the account tied to
+       the access_key. Configure allowed domains in Web3Forms
+       dashboard to prevent abuse.
        ============================================================ -->
   <section class="waitlist" id="waitlist">
     <div class="wrap">
@@ -1087,11 +1153,14 @@
       <div class="form-wrap">
         <form id="waitlist-form"
               class="wl-form"
-              action="https://assets.mailerlite.com/jsonp/2272213/forms/185907638946497675/subscribe"
-              method="post"
+              action="https://api.web3forms.com/submit"
+              method="POST"
               novalidate>
-          <input type="hidden" name="ml-submit" value="1" />
-          <input type="hidden" name="anticsrf" value="true" />
+          <input type="hidden" name="access_key" value="23cb1706-6498-4493-898d-d52d977d72ae" />
+          <input type="hidden" name="subject" value="ShainBox waitlist · detailed form" />
+          <input type="hidden" name="from_name" value="ShainBox Waitlist" />
+          <input type="hidden" name="form_source" value="bottom" />
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
 
           <div class="wl-field">
             <label class="wl-label" for="email">
@@ -1100,7 +1169,7 @@
             </label>
             <input id="email"
                    type="email"
-                   name="fields[email]"
+                   name="email"
                    class="wl-input"
                    required
                    autocomplete="email"
@@ -1115,21 +1184,21 @@
             </label>
             <div class="wl-radios" role="radiogroup" aria-required="true">
               <label class="wl-radio">
-                <input type="radio" name="fields[platform]" value="macOS Apple Silicon" required />
+                <input type="radio" name="platform" value="macOS Apple Silicon" required />
                 <span class="wl-radio-text">
                   <span class="wl-radio-name">macOS</span>
                   <span class="wl-radio-sub">Apple Silicon · M1+</span>
                 </span>
               </label>
               <label class="wl-radio">
-                <input type="radio" name="fields[platform]" value="macOS Intel" />
+                <input type="radio" name="platform" value="macOS Intel" />
                 <span class="wl-radio-text">
                   <span class="wl-radio-name">macOS</span>
                   <span class="wl-radio-sub">Intel</span>
                 </span>
               </label>
               <label class="wl-radio">
-                <input type="radio" name="fields[platform]" value="Windows" />
+                <input type="radio" name="platform" value="Windows" />
                 <span class="wl-radio-text">
                   <span class="wl-radio-name">Windows</span>
                   <span class="wl-radio-sub" data-i18n="form.win_sub">10 · 11</span>
@@ -1144,7 +1213,7 @@
               <span class="opt" data-i18n="form.optional">(optional)</span>
             </label>
             <textarea id="current_tool"
-                      name="fields[current_tool]"
+                      name="current_tool"
                       class="wl-textarea"
                       rows="3"
                       placeholder="A Pinterest board, a folder somewhere on your Desktop…"
@@ -1169,8 +1238,8 @@
 
         <div id="wl-success" class="wl-success" role="status" aria-live="polite">
           <div class="ok-tag" data-i18n="form.ok_tag">[ ON THE LIST ]</div>
-          <h4 data-i18n="form.ok_h">Check your inbox.</h4>
-          <p data-i18n="form.ok_p">We sent a confirmation. ShainBox launches soon — you'll be among the first to try it.</p>
+          <h4 data-i18n="form.ok_h">You're on the list.</h4>
+          <p data-i18n="form.ok_p">I'll write when ShainBox is ready. One email, no spam — that's it.</p>
         </div>
       </div>
     </div>
@@ -1215,8 +1284,11 @@
         'hero.kicker': 'A desktop library for design references',
         'hero.status': 'Pre-launch · Waitlist open',
         'hero.tag': 'A design reference library, <em>stored as folders.</em> Local AI search by content. Your files, on your machine.',
-        'hero.cta_primary': 'Get early access',
-        'hero.cta_secondary': 'See how it works',
+        'hero.cta_primary': 'Join waitlist',
+        'hero.email_ph': 'email',
+        'hero.status_success': '✓ On the list. I\'ll write when it\'s ready.',
+        'hero.status_error': '✗ Something went wrong. Try again.',
+        'hero.status_validation': 'Pick a platform to continue.',
         'hero.meta1_k': 'Pricing',
         'hero.meta1_v': '$19. One-time. Yours forever.',
         'hero.meta2_k': 'Trial',
@@ -1261,8 +1333,8 @@
         'form.foot': 'No spam. One email when ShainBox is ready, that\'s it.',
         'form.error': 'Something went wrong. Please try again, or email us.',
         'form.ok_tag': '[ ON THE LIST ]',
-        'form.ok_h': 'Check your inbox.',
-        'form.ok_p': 'We sent a confirmation. ShainBox launches soon — you\'ll be among the first to try it.',
+        'form.ok_h': 'You\'re on the list.',
+        'form.ok_p': 'I\'ll write when ShainBox is ready. One email, no spam — that\'s it.',
 
         'foot.tag': 'Made on disk',
         'foot.privacy': 'Privacy',
@@ -1278,8 +1350,11 @@
         'hero.kicker': 'Десктоп-бібліотека для дизайн-референсів',
         'hero.status': 'До релізу · Waitlist відкритий',
         'hero.tag': 'Бібліотека референсів, <em>збережена як звичайні папки.</em> Локальний AI-пошук за змістом. Твої файли — на твоєму диску.',
-        'hero.cta_primary': 'Отримати ранній доступ',
-        'hero.cta_secondary': 'Як це працює',
+        'hero.cta_primary': 'Приєднатися',
+        'hero.email_ph': 'email',
+        'hero.status_success': '✓ Ти у списку. Напишу, коли буде готово.',
+        'hero.status_error': '✗ Щось пішло не так. Спробуй ще раз.',
+        'hero.status_validation': 'Обери платформу, щоб продовжити.',
         'hero.meta1_k': 'Ціна',
         'hero.meta1_v': '$19. Один платіж. Назавжди твоє.',
         'hero.meta2_k': 'Тріал',
@@ -1324,8 +1399,8 @@
         'form.foot': 'Жодного спаму. Один лист, коли ShainBox буде готовий.',
         'form.error': 'Щось пішло не так. Спробуй ще раз або напиши нам.',
         'form.ok_tag': '[ У СПИСКУ ]',
-        'form.ok_h': 'Перевір пошту.',
-        'form.ok_p': 'Ми надіслали підтвердження. Незабаром ShainBox буде готовий — і ти серед перших.',
+        'form.ok_h': 'Ти у списку.',
+        'form.ok_p': 'Напишу, коли ShainBox буде готовий. Один лист, без спаму — і все.',
 
         'foot.tag': 'Зроблено на диску',
         'foot.privacy': 'Конфіденційність',
@@ -1380,10 +1455,98 @@
     }
 
     /* ============================================================
-       FORM SUBMIT — sends to MailerLite via fetch.
-       Falls back to native submit if fetch is blocked.
+       PLATFORM AUTO-DETECT
+       Pre-selects macOS/Windows in both forms based on user-agent.
+       Bottom form has a 3rd option (Apple Silicon vs Intel) — we
+       default macOS to Apple Silicon since most modern Macs are.
        ============================================================ */
-    function bindForm(){
+    function detectAndPreselectPlatform(){
+      const ua = navigator.userAgent || '';
+      let isMac = /Mac|iPhone|iPad/.test(ua);
+      let isWin = /Win/.test(ua);
+
+      if (isMac){
+        document.querySelectorAll('#hero-waitlist-form input[name="platform"][value="macOS"]')
+          .forEach(el => { el.checked = true; });
+        document.querySelectorAll('#waitlist-form input[name="platform"][value="macOS Apple Silicon"]')
+          .forEach(el => { el.checked = true; });
+      } else if (isWin){
+        document.querySelectorAll('#hero-waitlist-form input[name="platform"][value="Windows"]')
+          .forEach(el => { el.checked = true; });
+        document.querySelectorAll('#waitlist-form input[name="platform"][value="Windows"]')
+          .forEach(el => { el.checked = true; });
+      }
+    }
+
+    /* ============================================================
+       FORM SUBMIT — sends to Web3Forms (api.web3forms.com).
+       Real success/error states (no more "always show success").
+       Hero form uses the inline status row; bottom form uses the
+       existing wl-success / wl-error blocks.
+       ============================================================ */
+    async function submitToWeb3Forms(form){
+      const data = new FormData(form);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data,
+      });
+      // Web3Forms returns JSON with { success: boolean, message: string }
+      const json = await res.json().catch(() => ({ success: false, message: 'parse-error' }));
+      return json;
+    }
+
+    function bindHeroForm(){
+      const form = document.getElementById('hero-waitlist-form');
+      const statusEl = document.getElementById('hero-form-status');
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        statusEl.classList.remove('is-success', 'is-error');
+        statusEl.textContent = '';
+
+        // Custom check: at least one platform must be selected
+        // (HTML required on radio is unreliable when none are checked initially)
+        const hasPlatform = form.querySelector('input[name="platform"]:checked');
+        if (!hasPlatform){
+          const lang = (document.documentElement.lang || 'en');
+          statusEl.textContent = (i18n[lang] && i18n[lang]['hero.status_validation']) || 'Pick a platform to continue.';
+          statusEl.classList.add('is-error');
+          return;
+        }
+
+        if (!form.checkValidity()){
+          form.reportValidity();
+          return;
+        }
+
+        const submitBtn = form.querySelector('.hero-form-submit');
+        submitBtn.disabled = true;
+
+        try {
+          const json = await submitToWeb3Forms(form);
+          const lang = (document.documentElement.lang || 'en');
+          if (json.success){
+            form.style.display = 'none';
+            statusEl.textContent = (i18n[lang] && i18n[lang]['hero.status_success']) || '✓ On the list.';
+            statusEl.classList.add('is-success');
+          } else {
+            console.warn('[ShainBox] Web3Forms hero error:', json.message);
+            statusEl.textContent = (i18n[lang] && i18n[lang]['hero.status_error']) || '✗ Something went wrong.';
+            statusEl.classList.add('is-error');
+            submitBtn.disabled = false;
+          }
+        } catch(err){
+          console.error('[ShainBox] Hero submit error:', err);
+          const lang = (document.documentElement.lang || 'en');
+          statusEl.textContent = (i18n[lang] && i18n[lang]['hero.status_error']) || '✗ Network error.';
+          statusEl.classList.add('is-error');
+          submitBtn.disabled = false;
+        }
+      });
+    }
+
+    function bindBottomForm(){
       const form = document.getElementById('waitlist-form');
       const successEl = document.getElementById('wl-success');
       const errorEl = document.getElementById('wl-error');
@@ -1393,8 +1556,7 @@
         e.preventDefault();
         errorEl.classList.remove('show');
 
-        // Native HTML5 validation
-        if (!form.checkValidity()) {
+        if (!form.checkValidity()){
           form.reportValidity();
           return;
         }
@@ -1402,35 +1564,28 @@
         const submitBtn = form.querySelector('.wl-submit');
         submitBtn.disabled = true;
 
-        const data = new FormData(form);
-
-        // If the action URL hasn't been set yet, fail loudly to dev,
-        // gracefully to user.
-        const action = form.getAttribute('action');
-        if (!action || action === 'MAILERLITE_ACTION_URL') {
-          console.warn('[ShainBox] MailerLite action URL not configured. Replace MAILERLITE_ACTION_URL in the form.');
-          // Show success anyway so visual flow can be tested
-          form.style.display = 'none';
-          successEl.classList.add('show');
-          submitBtn.disabled = false;
-          return;
-        }
-
         try {
-          const res = await fetch(action, {
-            method: 'POST',
-            body: data,
-            mode: 'no-cors' // MailerLite endpoint typically returns opaque
-          });
-          // With no-cors we can't read status, but a thrown error means network failure.
-          form.style.display = 'none';
-          successEl.classList.add('show');
+          const json = await submitToWeb3Forms(form);
+          if (json.success){
+            form.style.display = 'none';
+            successEl.classList.add('show');
+          } else {
+            console.warn('[ShainBox] Web3Forms bottom error:', json.message);
+            errorEl.classList.add('show');
+            submitBtn.disabled = false;
+          }
         } catch(err){
-          console.error('[ShainBox] Submit error:', err);
+          console.error('[ShainBox] Bottom submit error:', err);
           errorEl.classList.add('show');
           submitBtn.disabled = false;
         }
       });
+    }
+
+    function bindForm(){
+      bindHeroForm();
+      bindBottomForm();
+      detectAndPreselectPlatform();
     }
 
     /* ============================================================
